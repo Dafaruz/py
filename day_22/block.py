@@ -1,23 +1,36 @@
 from turtle import Turtle
 
 SPEED = 20
-SIZE = 5
+SIZE = 3
 
-class Block (Turtle):
 
-    def __init__(self):
-        super().__init__()
+class Block:
+
+    def __init__(self, location):
         self.step = SPEED
-        self.block_list=[]
-        self.block_creation()
+        self.block_list = []
+        self.location = location
+        self.block_creation(location)
+        self.block_list[(len(self.block_list) - 1)].color("RED")
 
+    def block_creation(self, location):
 
-    def block_creation(self):
-
-        for index in range (0,SIZE):
+        print('create blocks start')
+        for index in range(-3, SIZE):
+            print(index)
             blocks = Turtle("square")
-            blocks.size(20)
             blocks.color("white")
             blocks.penup()
             blocks.speed('slow')
-            blocks.goto(x=-280 , y=(-40 + index*20))
+            blocks.goto(x=location, y=(0 + index*20))
+            self.block_list.append(blocks)
+
+    def up(self):
+        for block in range(len(self.block_list)-1, -1, -1):
+            self.block_list[block].seth(90)
+            self.block_list[block].fd(SPEED)
+
+    def down(self):
+        for block in range(-1, len(self.block_list)-1):
+            self.block_list[block].seth(270)
+            self.block_list[block].fd(SPEED)

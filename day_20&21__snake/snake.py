@@ -67,3 +67,8 @@ class Snake:
             return
         else:
             self.square_list[0].seth(0)
+
+
+
+
+
