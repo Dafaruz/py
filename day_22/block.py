@@ -11,7 +11,6 @@ class Block:
         self.block_list = []
         self.location = location
         self.block_creation(location)
-        self.block_list[(len(self.block_list) - 1)].color("RED")
 
     def block_creation(self, location):
 
@@ -26,11 +25,17 @@ class Block:
             self.block_list.append(blocks)
 
     def up(self):
-        for block in range(len(self.block_list)-1, -1, -1):
-            self.block_list[block].seth(90)
-            self.block_list[block].fd(SPEED)
+        if self.block_list[len(self.block_list)-1].ycor() <= 280:
+            for block in range(len(self.block_list)-1, -1, -1):
+                self.block_list[block].seth(90)
+                self.block_list[block].fd(SPEED)
+        else:
+            pass
 
     def down(self):
-        for block in range(-1, len(self.block_list)-1):
-            self.block_list[block].seth(270)
-            self.block_list[block].fd(SPEED)
+        if self.block_list[0].ycor() >= -280:
+            for block in range(-1, len(self.block_list)-1):
+                self.block_list[block].seth(270)
+                self.block_list[block].fd(SPEED)
+        else:
+            pass
