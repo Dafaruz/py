@@ -6,3 +6,5 @@ Sokka
 Momo
 Uncle Iroh
 Toph
+Hadas
+Omer
