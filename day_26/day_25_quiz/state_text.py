@@ -1,5 +1,5 @@
 from turtle import Turtle
-import pandas
+
 FONT = ("Courier", 24, "normal")
 
 

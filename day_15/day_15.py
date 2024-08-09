@@ -20,8 +20,8 @@ def check_for_resources(type):
         for resource in resources:
             print(resource+  "  quantity:  " + str(resources[resource]))
         return
-    elif type=="add"
-        for
+    elif type=="add" :
+        O=1
     else:
         return
 

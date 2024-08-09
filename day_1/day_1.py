@@ -1,4 +1,4 @@
-print("this is the band name ganerator\n ")
+dprint("this is the band name ganerator\n ")
 print("pls enter your city name \n")
 city_name=input()
 print("pls enter your pet name \n")

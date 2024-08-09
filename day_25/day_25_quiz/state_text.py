@@ -1,25 +1,22 @@
 from turtle import Turtle
+import pandas
 FONT = ("Courier", 24, "normal")
 
 
-class ScoreBoard(Turtle):
+class StateText (Turtle):
 
-    def __init__(self):
+    def __init__(self,user_guess, x_cord, y_cord):
         super().__init__()
-        self.score = -1
+        self.guess = user_guess
         self.hideturtle()
         self.color('black')
         self.penup()
-        self.goto(x=150, y=250)
-        self.score_went_up()
+        self.user_geuss_right(x_cord,y_cord)
 
 
-    def score_went_up(self):
-        self.goto(x=150, y=250)
-        self.write(arg=f"your level : {self.score}", move=False, align='center', font=('Arial', 14, 'bold'))
-        self.clear()
-        self.score += 1
-        self.write(arg=f"your level :{self.score}", move=False,  align='center', font=('Arial', 14, 'bold'))
+    def user_geuss_right (self,x_cord,y_cord):
+        self.goto(x=x_cord, y=y_cord)
+        self.write(arg=self.guess, move=False, align='center', font=('Arial', 14, 'bold'))
 
     def game_over(self):
         self.clear()
