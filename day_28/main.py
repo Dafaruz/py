@@ -107,6 +107,7 @@ v_text.grid(column=1, row=2)
 tomato = PhotoImage(file="tomato.png")  # crate a object from photopigment class
 canvas = Canvas(width=200, height=224, bg=YELLOW, highlightthickness=0)  # create the canvas object
 canvas.create_image(100, 112, image=tomato)  # notice we used the tomato object inside so the creation image
+
 timer = canvas.create_text(100, 130, text="00:00", font=(FONT_NAME, 35, "bold"), fill="white")
 canvas.grid(column=1, row=1)  # localize on the grid
 
