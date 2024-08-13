@@ -48,7 +48,6 @@ def add_info():
 
 # ---------------------------- UI SETUP ------------------------------------------------------------------------ #
 
-
 window = Tk()   # create the Tk window
 
 window.config(padx=50, pady=50, bg="white")
