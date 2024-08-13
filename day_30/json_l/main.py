@@ -20,7 +20,6 @@ symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
 
 txt = ['', '', '']
 
-j_dict = {}
 
 
 # ---------------------------- Search DATA ------------------------------- #
@@ -58,29 +57,42 @@ def generate_pass():
 
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
-def add_info():
-    global j_dict
-    with open("User Data.json", mode='w') as data:     # notice mode  is appended to add new line
-        txt[0]=password_entry.get()
+def add_info(js_dict):
+
+# --------------------- save value ------------------------------------#
+    with open("User Data.json", mode='w') as data:
+
+        txt[0] = password_entry.get()
         txt[1] = mail_entry.get()
-        txt[2]= website_entry.get()
+        txt[2] = website_entry.get()
+
         # a part for empty info
         if "" in txt:
-            print(j_dict)
+            print('we non werite   loop')
+            print(js_dict)
             popup = Tk()
             popup.minsize(width=300, height=200)
             popup.title(' one or more of the detail is empty pls refill')
             popup.config(bg="white")
             pop_label = Label(popup, text='pls fix it u jackass', font=("Ariel", 15))
             pop_label.pack()
+            json.dump(js_dict, data, indent=4)
+            return
 
 
         else:
-                print(j_dict)
-                j_dict[str(website_entry.get())] = {"password": password_entry.get(), "email": mail_entry.get()}
-                json.dump(j_dict, data, indent=4)   # if statement won't do  we will dump the info
+                print('we enterd the write loop')
+                js_dict[str(website_entry.get())] = {"password": password_entry.get(), "email": mail_entry.get()}
+                json.dump(js_dict, data, indent=4)   # if statement won't do  we will dump the info
 
 # ---------------------------- UI SETUP ------------------------------------------------------------------------ #
+
+
+try:              # will try to load data if the file is not there we init the dict
+    with open("User Data.json", mode='r') as json_data:     # notice mode  is appended to add new line
+        dict_j = json.load(json_data)
+except(FileNotFoundError, json.JSONDecodeError):
+    dict_j = {}       # init the json file
 
 
 window = Tk()  # create the Tk window
@@ -99,7 +111,7 @@ logo.grid(column=1, row=0)                  # grid alignment
 generate = Button(text="Generate password", command=generate_pass)      # create the generate button
 generate.grid(column=1, row=4, sticky='e')          # notice the sticky option will stick it to west or est etc
 
-add = Button(text="Add", width=40, command=add_info)      # add to notepad
+add = Button(text="Add", width=40, command=lambda: add_info(dict_j))      # add to notepad
 add.grid(column=1, row=5, pady=5)          # grid alignment
 
 website_b = Button(text="Search", command=search_data)
