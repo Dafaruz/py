@@ -10,6 +10,7 @@ from random import choice, shuffle
 import pyperclip
 import json
 from tkinter import messagebox
+
 letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
            'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',
            'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
@@ -19,7 +20,6 @@ numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
 
 txt = ['', '', '']
-
 
 
 # ---------------------------- Search DATA ------------------------------- #
@@ -55,11 +55,11 @@ def generate_pass():
     password_entry.insert(0, string=password)     # enter the new string
     pyperclip.copy(password)                       # copy to clipboard the password
 
-
 # ---------------------------- SAVE PASSWORD ------------------------------- #
+
+
 def add_info(js_dict):
 
-# --------------------- save value ------------------------------------#
     with open("User Data.json", mode='w') as data:
 
         txt[0] = password_entry.get()
@@ -68,8 +68,7 @@ def add_info(js_dict):
 
         # a part for empty info
         if "" in txt:
-            print('we non werite   loop')
-            print(js_dict)
+
             popup = Tk()
             popup.minsize(width=300, height=200)
             popup.title(' one or more of the detail is empty pls refill')
@@ -79,9 +78,8 @@ def add_info(js_dict):
             json.dump(js_dict, data, indent=4)
             return
 
-
         else:
-                print('we enterd the write loop')
+
                 js_dict[str(website_entry.get())] = {"password": password_entry.get(), "email": mail_entry.get()}
                 json.dump(js_dict, data, indent=4)   # if statement won't do  we will dump the info
 
@@ -91,7 +89,7 @@ def add_info(js_dict):
 try:              # will try to load data if the file is not there we init the dict
     with open("User Data.json", mode='r') as json_data:     # notice mode  is appended to add new line
         dict_j = json.load(json_data)
-except(FileNotFoundError, json.JSONDecodeError):
+except (FileNotFoundError, json.JSONDecodeError):
     dict_j = {}       # init the json file
 
 
