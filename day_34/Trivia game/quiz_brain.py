@@ -9,7 +9,7 @@ class QuizBrain:
         self.current_question = None
 
     def still_has_questions(self):
-        return self.question_number < len(self.question_list)
+        return self.question_number < len(self.question_list)   # will return boolean
 
     def next_question(self):
         self.current_question = self.question_list[self.question_number]

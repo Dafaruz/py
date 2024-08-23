@@ -1,15 +1,21 @@
-BACKGROUND_COLOR = "#B1DDC6"
-from  random import randint
+import tkinter as tk
 
-from tkinter import *
-import pandas
+root = tk.Tk()
 
-def v_press():
-    pass
+# יצירת Frame והוספתו לחלון הראשי
+frame = tk.Frame(root)
+frame.pack()
 
-def x_press():
-    pass
-#----------------------------------- sector to extract the data to csv --------------#
-data_frame = pandas.read_csv("data/french_words.csv")  # import the data as a data frame
+# יצירת כפתורים והוספתם ל-Frame
+button1 = tk.Button(frame, text="Button 1")
+button2 = tk.Button(frame, text="Button 2")
+button3 = tk.Button(frame, text="Button 3")
 
-print(data_frame.French[randint(0, len(data_frame.French)-1)])
+button1.pack(side=tk.LEFT)
+button2.pack(side=tk.LEFT)
+button3.pack(side=tk.LEFT)
+
+root.mainloop()
+
+
+
