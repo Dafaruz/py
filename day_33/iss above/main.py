@@ -1,9 +1,9 @@
 import smtplib
 from datetime import datetime
 import requests
+import os
 MY_LAT = 31.863400
 MY_LON = 35.171890
-
 my_parameter = {"lat": MY_LAT, "lon": MY_LON, "formatted": 0}
 
 s_s_request = requests.get(url="https://api.sunrise-sunset.org/json?lat=36.7201600&lng", params=my_parameter)
@@ -34,7 +34,7 @@ if home_sunrise < time_h > home_sunset_t:
     if MY_LAT-5 >= iss_lat <= MY_LAT+5 and MY_LON-5 >= iss_lon <= MY_LON+5:
 
         with smtplib.SMTP("smtp.gmail.com") as conection:
-            password = "zmgi pdtz czfw hdnl"
+            password = os.environ.get("GMAIL_Pass")
             user = "danielfaruzz@gmail.com"
             conection.starttls()
             conection.login(user=user, password=password)

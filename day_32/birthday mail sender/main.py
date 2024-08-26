@@ -32,7 +32,7 @@ if not birthday_today.empty:  # statement to check if the data is empty or not b
         with smtplib.SMTP("smtp.gmail.com") as conection:     # start the mail sending
 
             msg = f"congrats {value['name']} is {t_year - int(value['year'])} years old"  #massega from data frame
-            password = "zmgi pdtz czfw hdnl"     # api for gmail
+            password = os.environ.get("GMAIL_Pass")     # api for gmail
             user = "danielfaruzz@gmail.com"        # sender mail
             conection.starttls()
             conection.login(user=user, password=password)

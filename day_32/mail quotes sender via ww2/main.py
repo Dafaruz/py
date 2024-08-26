@@ -13,7 +13,7 @@ if work_week == 3:
     with smtplib.SMTP("smtp.gmail.com") as conection:
         msg = f"Subject: Daily Quote \n\n {choice(quotes_list)}"
         print(msg)
-        password = "zmgi pdtz czfw hdnl"
+        password = os.environ.get("GMAIL_Pass")
         user = "danielfaruzz@gmail.com"
         conection.starttls()
         conection.login(user=user, password=password)
