@@ -23,7 +23,8 @@ def stock_news():
                          f"and ticker label: {ticker['ticker_sentiment_label']}")
             return title + stats
 
-# Your API key is: 5542115c1dd449069bde57cc9b51d454
+
+
 
 today = dt.now().date()
 
