@@ -1,13 +1,15 @@
-from pprint import pprint
-
+from datetime import datetime,timedelta
+from flight_data import FlightData
 from flight_search import FlightSearch
 from data_manager import DataManager
-#This file will need to use the DataManager,FlightSearch, FlightData, NotificationManager classes to achieve the program requirements.
+from notification_manager import NotificationManager
 
-# flight_search = FlightSearch() working with token
-data_menger = DataManager()
-flight_search = FlightSearch()
 
-global_token = flight_search.token
-
-data_menger.enter_test_in_all_row()
+if datetime.now().weekday() == 1:
+    flight_search = FlightSearch()
+    flight_data = FlightData(flight_search.token)
+    data_manager = DataManager(flight_data)
+    data_manager.check_ata_status()              # first check there is no empty slots
+    info = flight_search.search_price(data_manager) # info a list of messages
+    notify = NotificationManager(info)
+    notify.mail_sender()

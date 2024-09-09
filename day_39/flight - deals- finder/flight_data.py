@@ -1,28 +1,29 @@
+
 import requests
-from flight_search import  FlightSearch
-proxy = {                                        #* proxies=proxy) in case u need intel proxy
+
+proxy = {  # * proxies=proxy) in case u need intel proxy
     'http': 'http://proxy-chain.intel.com:911',
     'https': 'http://proxy-chain.intel.com:912',
 }
 
-# class that will handel the data
-
 
 class FlightData:
-        def __init__(self,):
-                self.end_point = "https://test.api.amadeus.com/v1/reference-data/locations"  # end point for search
-                self.data = {
+    def __init__(self, token):
+        self.end_point = "https://test.api.amadeus.com/v1/reference-data/locations/cities"  # end point for search
+        self.token = token
+        self.data = {
+            "keyword": "Test"
+        }
+        self.header = {"Authorization": f"Bearer {self.token}",
+                       "accept": "application/vnd.amadeus+json"}
 
-                       "subType ": "CITY&keyword",
-                       "view": "LIGHT ",
-                       "keyword ": "LON"
-                }
+    def find_ata_code(self, city):
+        self.data['keyword'] = city
 
-        def fill_empty_ata_code(self,city_data):
+        data = requests.get(url=self.end_point, headers=self.header, params=self.data).json()  # get ata code
 
-                header = {"Authorization":" Bearer CpjU0sEenniHCgPDrndzOSWFk5mN"}
-                for city in city_data:
+        try:
+            return data['data'][0]["iataCode"]        # try to return the right ata code
 
-                    city['iataCode']
-
-                    data = requests.get(url= self.end_point, headers=header, data=self.subType ,proxies=proxy).json() # will return data on a city name so we can get ata code
+        except KeyError as x:
+            print(x)

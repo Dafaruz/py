@@ -2,7 +2,7 @@ import pandas
 import smtplib
 from random import randint
 import datetime as dt
-
+import os
 # i need tto import the csv data as a dataframe to the  code:
 data = pandas.read_csv("birthdays.csv")
 

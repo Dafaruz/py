@@ -1,5 +1,6 @@
 import requests
-from  flight_data import *
+from flight_data import FlightData
+
 import os
 
 proxy = {                                        #* proxies=proxy) in case u need intel proxy
@@ -10,30 +11,29 @@ proxy = {                                        #* proxies=proxy) in case u nee
 # class to handle the data in exel
 class DataManager:
 
-    def __init__(self):
+    def __init__(self, flight_data: FlightData):
         self.end_point = "https://api.sheety.co/3d22c46a86d5caef41b2a5f071fd1415/flightDeals/prices"
-        self.data = requests.get(url=self.end_point, proxies=proxy).json()
+        self.data = requests.get(url=self.end_point).json()
+        self.missing_ata_list = []
+        self.flight_data = flight_data
 
-
-    def get_ata_code(self):
+    def check_ata_status(self):
 
         for index in self.data['prices']:  #  we will need index to be number to enter row by row
-            print(index)
             if index["iataCode"] == "":     # in case we need to find the iata to put in the row
-                self.flight_data =           # here we will put the block to update the empty slot
+                self.missing_ata_list.append(index['city'])
+                fixed_value = self.flight_data.find_ata_code(index['city'])
 
-
+                new_data = {
+                    "price": {
+                        "iataCode": fixed_value
+                    }
+                }
                 info = requests.put(url=self.end_point + f"/{index['id']}",
-                                    headers={'Content-Type': 'application/json'}, json=data, proxies=proxy)
+                                      headers={'Content-Type': 'application/json'}, json=new_data,)
 
-            else:
-
-                data = {
-                     "price": {
-                        "iataCode": "Test"
-
-                     }}
-
-                info = requests.put(url=self.end_point+f"/{index['id']}", json=data , proxies=proxy)
 
                 print(info.text)
+        print(f"the missing cities list is : {self.missing_ata_list}")
+
+
