@@ -98,3 +98,5 @@ message = client.messages.create(       # crate message object to send via  twil
 
 )
 print(message.status)  # print the status of the message
+
+response = requests.get()
