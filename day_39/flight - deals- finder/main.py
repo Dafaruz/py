@@ -12,4 +12,5 @@ if datetime.now().weekday() == 1:
     data_manager.check_ata_status()              # first check there is no empty slots
     info = flight_search.search_price(data_manager) # info a list of messages
     notify = NotificationManager(info)
+    print(info)
     notify.mail_sender()

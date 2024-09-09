@@ -61,9 +61,9 @@ class FlightSearch:
             local = 0
 
             try:
-                for index in range(0, int(price_data["meta"]["count"])): # finde the bast value price index
+                for index in range(0, int(price_data["meta"]["count"])-1): # finde the bast value price index
                     if i < float(price_data['data'][index]['price']['grandTotal']):
-                        i = float(price_data['data'][index]['price']['grandTotal'])
+                        i = float(price_data['data'][index]['price']['grandTotal' ])
                         local = index
 
                 try:
@@ -82,12 +82,10 @@ class FlightSearch:
 
 
                 except (KeyError, IndexError) as err:
-                    print(err)
                     print(f"no flights to: {data['city']}")
 
 
             except KeyError as err:
-                print("server is overload")
-                exit(1)
+                print(err)
 
         return data_list
