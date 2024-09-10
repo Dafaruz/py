@@ -1,8 +1,13 @@
 import smtplib
 import os
+proxy = {  # * proxies=proxy) in case u need intel proxy
+    'http': 'http://proxy-chain.intel.com:911',
+    'https': 'http://proxy-chain.intel.com:912',
+}
 
 
 class NotificationManager:
+
     def __init__(self, info:list):
         self.list_data = info
 
@@ -15,6 +20,6 @@ class NotificationManager:
             conection.login(user=user, password=password)
             for data in self.list_data:
                 msg = "Subject: deal ALART \n\n" + data  #massega from data frame
-                conection.sendmail(from_addr=user, to_addrs="danielfaruz@gmail.com", msg=msg)
+                conection.sendmail(from_addr=user, to_addrs="danielfaruz@gmail.com", msg=msg )
 
 

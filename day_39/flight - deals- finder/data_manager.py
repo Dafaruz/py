@@ -14,6 +14,7 @@ class DataManager:
     def __init__(self, flight_data: FlightData):
         self.end_point = "https://api.sheety.co/3d22c46a86d5caef41b2a5f071fd1415/flightDeals/prices"
         self.data = requests.get(url=self.end_point).json()
+        print(self.data)
         self.missing_ata_list = []
         self.flight_data = flight_data
 
@@ -30,7 +31,7 @@ class DataManager:
                     }
                 }
                 info = requests.put(url=self.end_point + f"/{index['id']}",
-                                      headers={'Content-Type': 'application/json'}, json=new_data,)
+                                    headers={'Content-Type': 'application/json'}, json=new_data)
 
 
                 print(info.text)

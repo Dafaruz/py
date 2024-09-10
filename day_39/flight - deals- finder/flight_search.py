@@ -16,8 +16,9 @@ proxy = {
 class FlightSearch:
 
     def __init__(self):
-        self.api_key = os.environ.get("AMADEUS_API_KEY")
+        self.api_key = os.environ.get("AMADEUS_API_KEI")
         self.api_secret = os.environ.get("AMADEUS_API_SECRET")
+        print(self.api_secret, self.api_key)
         self.token = self.get_new_token()
         self.price_end_point = "https://test.api.amadeus.com/v2/shopping/flight-offers"
         self.price_data = {
@@ -56,13 +57,15 @@ class FlightSearch:
         data_of_prices = data_manager.data  # will get list of dictionaries to work with
         for data in data_of_prices['prices']:
             self.price_data["destinationLocationCode"] = data["iataCode"]
-            price_data = requests.get(url=self.price_end_point, headers=self.header, params=self.price_data).json()
+            price_data = requests.get(url=self.price_end_point, headers=self.header,
+                                      params=self.price_data, ).json()
+
             i = 0
             local = 0
 
             try:
                 for index in range(0, int(price_data["meta"]["count"])-1): # finde the bast value price index
-                    if i < float(price_data['data'][index]['price']['grandTotal']):
+                    if i > float(price_data['data'][index]['price']['grandTotal']):
                         i = float(price_data['data'][index]['price']['grandTotal' ])
                         local = index
 
@@ -79,11 +82,9 @@ class FlightSearch:
                     else:
                         print(f'no deals today for flights to : {city}' )
 
+                except (KeyError, IndexError):
 
-
-                except (KeyError, IndexError) as err:
                     print(f"no flights to: {data['city']}")
-
 
             except KeyError as err:
                 print(err)
